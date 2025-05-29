@@ -1,0 +1,55 @@
+1. How do sub-resource routes like /journalists/:id/articles help in designing a clear and organized API?
+Explain the benefits of using nested routes for resource relationships in REST APIs.
+Benefits of using nested routes:
+- Logical grouping: They reflect real-world relationships (e.g., a journalist has many articles), making the API more intuitive.
+- Context clarity: It is clear that the articles returned are specifically authored by the given journalist.
+- Scoped data retrieval: Fetching only related data reduces noise and enhances performance (no need to fetch all articles).
+- Better RESTful design: They follow resource hierarchy, encouraging a resource-oriented approach consistent with REST principles.
+
+2. What challenges did you face when managing multiple filter state (journalist and category) in React?
+Discuss how you handle state updates and conditional rendering when multiple inputs affect the same output.
+Common challenges:
+- State synchronization: Ensuring the component accurately reflects the selected filters at all times.
+- Avoiding stale states: When both filters change in quick succession, avoiding race conditions or inconsistent UI states.
+- Conditional rendering complexity: Updating UI components only when the filtered result changes, without unnecessary re-renders.
+- Dependency management in effects: useEffect dependencies can get tricky when multiple states trigger data fetching.
+
+Solutions:
+- Single state object: Combine filters into one object ({ journalist, category }) and update them together for better control.
+- useEffect hooks: Use dependencies properly to trigger fetching or filtering only when relevant values change.
+- Memoization: Use useMemo for filtered results to avoid recomputation and performance issues.
+
+3. What would be the advantages and disadvantages of handling the filtering entirely on the frontend versus using API-based filtering?
+Compare client-side filtering (in-memory) vs server-side filtering (via query or nested routes)
+When deciding between client-side and server-side filtering, it's important to consider the size and nature 
+of your dataset. Client-side filtering, where all data is loaded into memory and filtered locally, offers fast 
+UI updates and reduces the number of API calls. It's ideal for smaller datasets or when data doesn't change frequently. 
+However, it can become inefficient or even unusable for large datasets, as it consumes more memory and can lead to stale data. 
+On the other hand, server-side filtering involves sending filter criteria (like journalist ID or category) to the backend via query 
+parameters, allowing the server to return only the relevant subset of data. This approach scales better with large datasets, ensures 
+fresher data, and keeps client performance high, though it does introduce complexity in API design and increases the number of HTTP 
+requests. Choosing between the two depends on your specific application needs, but for dynamic or large-scale applications, server-side 
+filtering is usually the better choice.
+
+4. If you needed to allow filtering by both journalist and category at the same time on the backend, how would you modify the API structure?
+Think about adding query parameters or designing a new combined route.
+To support filtering by both journalist and category on the backend, the API should be flexible 
+enough to handle multiple criteria simultaneously. The most practical way to achieve this is by 
+using query parameters, such as /articles?journalist=12&category=politics. This structure keeps 
+the endpoint clean, scalable, and easy to extend with additional filters like tags, dates, or keywords. 
+It's also more RESTful and aligns well with common web practices. While you could technically 
+create nested routes like /journalists/12/categories/politics/articles, this can quickly become 
+cumbersome and less maintainable as you introduce more filter options. Query parameters are not 
+only easier to handle in frontend code, but they also make backend processing more standardized and testable.
+
+5. How did this exercise help you understand the interaction between React state, form controls, and RESTful API data?
+Reflect on how state changes triggered data fetching and influenced the UI rendering logic.
+This exercise provided valuable insights into how React state interacts with form controls and 
+RESTful APIs. Managing filters through React state showed how user input directly affects the data 
+displayed on the page. Each time a filter value changed, it triggered either a local filtering 
+operation or a new API request, depending on the setup. This reinforced the importance of correctly 
+configuring state updates and effect dependencies to ensure timely and accurate data rendering. 
+It also highlighted the need to carefully design form controls to provide a responsive and intuitive 
+experience. Overall, the process deepened the understanding of how frontend and backend components 
+communicate, how state changes drive UI behavior, and how important it is to keep both systems in sync 
+for smooth, real-time interactions.

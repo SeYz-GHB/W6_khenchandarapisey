@@ -1,0 +1,24 @@
+1. How did using useEffect() and axios help separate logic from UI?
+Using useEffect() and axios allowed you to separate side effects (like data fetching) from your UI rendering logic.
+- useEffect() is the right place to perform non-UI tasks such as API requests, event listeners, 
+or timeouts. This keeps your JSX clean and focused on displaying data, not managing how it's fetched.
+- axios abstracts HTTP calls, making the code easier to read and reuse, instead of manually writing 
+fetch() boilerplate or mixing data-handling logic into components.
+
+2. What state challenges did you face while managing from input and API response?
+Common challenges include:
+- Async updates: Ensuring the form doesn't render before the article data is fetched. 
+If setForm(res.data) is delayed, inputs may show empty values.
+- Uncontrolled vs. controlled inputs: If you don't properly bind inputs to useState, 
+React will warn about switching between uncontrolled and controlled components.
+- State shape mismatch: If the API response shape doesn't exactly match the form state
+ (e.g., missing fields), undefined or errors can occur.
+- Resets after submit: After submitting, resetting the form or navigating away needs 
+careful state management to avoid stale inputs.
+
+3. How does REST structure help React developers write cleaner frontend code?
+The REST API structure helps React developers write cleaner code by standardizing endpoints and separating concerns:
+- Clean URL structure
+- Consistent HTTP verbs
+- Resource-based thinking
+- Stateless interactions
